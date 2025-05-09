@@ -4,8 +4,8 @@
 
 ## 🟩 My GitHub Activity
 
-- **Total commits:** 1
-- **Commits this year:** 1
+- **Total commits:** 56
+- **Commits this year:** 32
 
 ![GitHub Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Vicorico17&theme=github-compact)
 
