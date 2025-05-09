@@ -4,12 +4,12 @@ Welcome to my GitHub profile! I'm all about vibecoding and vibemarketing.
 
 ---
 
-## 🟩 My GitHub Activity
+## 🏆 My GitHub Highlights
 
 - 🚀 **Total commits (2023):** 416
 - 🌱 **Commits this year:** 56
 
-![GitHub Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Vicorico17&theme=github-compact)
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Vicorico17&layout=compact&theme=radical)
 
 ---
 
