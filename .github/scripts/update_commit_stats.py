@@ -2,6 +2,7 @@ import os
 import requests
 import datetime
 import re
+import time
 
 USERNAME = os.environ.get('GITHUB_USERNAME')
 TOKEN = os.environ.get('GITHUB_TOKEN')
@@ -39,34 +40,40 @@ def get_repos_for_org(org):
         page += 1
     return repos
 
-def get_commit_count_all(repo_full_name, since=None):
-    count = 0
-    page = 1
-    while True:
-        url = f'https://api.github.com/repos/{repo_full_name}/commits?per_page=100&page={page}'
-        if since:
-            url += f'&since={since}'
+def get_commit_stats(repo_full_name, since_year=None):
+    url = f'https://api.github.com/repos/{repo_full_name}/stats/contributors'
+    for _ in range(10):  # Retry up to 10 times if GitHub is generating stats
         r = requests.get(url, headers=headers)
+        if r.status_code == 202:
+            time.sleep(2)  # Wait for GitHub to generate stats
+            continue
         data = r.json()
-        if not isinstance(data, list) or not data:
-            break
-        count += len(data)
-        page += 1
-    return count
+        if not isinstance(data, list):
+            return 0, 0
+        total = 0
+        this_year = 0
+        current_year = datetime.datetime.now().year
+        for contributor in data:
+            for week in contributor.get('weeks', []):
+                week_date = datetime.datetime.utcfromtimestamp(week['w'])
+                total += week['c']
+                if since_year and week_date.year == since_year:
+                    this_year += week['c']
+        return total, this_year
+    return 0, 0
 
 def main():
-    # Get user and org repos
     user_repos = get_repos_for_user(USERNAME)
     org_repos = get_repos_for_org(ORG_NAME)
     all_repos = user_repos + org_repos
     total_commits = 0
     this_year_commits = 0
     this_year = datetime.datetime.now().year
-    since = f"{this_year}-01-01T00:00:00Z"
     for repo in all_repos:
         repo_full_name = repo['full_name']
-        total_commits += get_commit_count_all(repo_full_name)
-        this_year_commits += get_commit_count_all(repo_full_name, since=since)
+        repo_total, repo_this_year = get_commit_stats(repo_full_name, since_year=this_year)
+        total_commits += repo_total
+        this_year_commits += repo_this_year
     # Update README
     with open(README_PATH, 'r') as f:
         content = f.read()
