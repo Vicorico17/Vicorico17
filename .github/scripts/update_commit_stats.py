@@ -42,25 +42,25 @@ def get_repos_for_org(org):
 
 def get_commit_stats(repo_full_name, since_year=None):
     url = f'https://api.github.com/repos/{repo_full_name}/stats/contributors'
-    for _ in range(10):  # Retry up to 10 times if GitHub is generating stats
-        r = requests.get(url, headers=headers)
-        if r.status_code == 202:
-            time.sleep(2)  # Wait for GitHub to generate stats
-            continue
-        data = r.json()
-        if not isinstance(data, list):
-            return 0, 0
-        total = 0
-        this_year = 0
-        current_year = datetime.datetime.now().year
-        for contributor in data:
-            for week in contributor.get('weeks', []):
-                week_date = datetime.datetime.utcfromtimestamp(week['w'])
-                total += week['c']
-                if since_year and week_date.year == since_year:
-                    this_year += week['c']
-        return total, this_year
-    return 0, 0
+    r = requests.get(url, headers=headers)
+    if r.status_code == 202:
+        print(f"Stats not ready for {repo_full_name}, skipping for now.")
+        return 0, 0
+    data = r.json()
+    if not isinstance(data, list):
+        print(f"No stats data for {repo_full_name}, skipping.")
+        return 0, 0
+    total = 0
+    this_year = 0
+    current_year = datetime.datetime.now().year
+    for contributor in data:
+        for week in contributor.get('weeks', []):
+            week_date = datetime.datetime.utcfromtimestamp(week['w'])
+            total += week['c']
+            if since_year and week_date.year == since_year:
+                this_year += week['c']
+    print(f"{repo_full_name}: total={total}, this_year={this_year}")
+    return total, this_year
 
 def main():
     user_repos = get_repos_for_user(USERNAME)
@@ -81,6 +81,7 @@ def main():
     content = re.sub(r'\*\*Commits this year:\*\* [0-9]+', f'**Commits this year:** {this_year_commits}', content)
     with open(README_PATH, 'w') as f:
         f.write(content)
+    print(f"Updated README with total_commits={total_commits}, this_year_commits={this_year_commits}")
 
 if __name__ == '__main__':
     main() 
