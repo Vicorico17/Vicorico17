@@ -1,15 +1,15 @@
 # Hi, I'm Vic! 👋
 
-<!-- Commit stats section -->
+Welcome to my GitHub profile! I'm all about vibecoding and vibemarketing.
+
+---
 
 ## 🟩 My GitHub Activity
 
-- **Total commits:** 56
-- **Commits this year:** 32
+- 🚀 **Total commits (2023):** 416
+- 🌱 **Commits this year:** 56
 
 ![GitHub Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Vicorico17&theme=github-compact)
-
-vibecoding and vibemarketing.
 
 ---
 
@@ -21,4 +21,4 @@ vibecoding and vibemarketing.
 
 ---
 
-> _Commit stats and activity graph generated automatically._ 
+> _Thanks for stopping by!_ 
