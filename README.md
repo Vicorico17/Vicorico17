@@ -1,6 +1,13 @@
 # Hi, I'm Vic! 👋
 
-![Commits Badge](https://img.shields.io/badge/dynamic/json?color=blue&label=Total%20Commits&query=%24.commits&url=https%3A%2F%2Fgithub-readme-stats.vercel.app%2Fapi%2F?username=Vicorico17&show_icons=true)
+<!-- Commit stats section -->
+
+## 🟩 My GitHub Activity
+
+- **Total commits:** 1
+- **Commits this year:** 1
+
+![GitHub Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=Vicorico17&theme=github-compact)
 
 vibecoding and vibemarketing.
 
@@ -14,12 +21,4 @@ vibecoding and vibemarketing.
 
 ---
 
-## 📊 GitHub Stats
-
-![Vicorico17's GitHub stats](https://github-readme-stats.vercel.app/api?username=Vicorico17&show_icons=true&theme=radical)
-
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Vicorico17&layout=compact&theme=radical)
-
----
-
-> _Dynamic commit count and stats powered by [GitHub Readme Stats](https://github.com/anuraghazra/github-readme-stats)_ 
+> _Commit stats and activity graph generated automatically._ 
